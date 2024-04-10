@@ -33,14 +33,12 @@ public class BulletBehaviorManager : MonoBehaviour
             directions = spawner.bulletDirections,
         };
         var behaviorJobHandle = behaviorJob.Schedule(spawner.bulletPositions.Length, 100);
-        behaviorJobHandle.Complete();
 
         var updateTransformsJob = new UpdateTransformsJob {
             positions = behaviorJob.bulletPositions,
-            transforms = bulletTransformsAccessArray,
         };
 
-        var handle = updateTransformsJob.Schedule(bulletTransformsAccessArray);
+        var handle = updateTransformsJob.Schedule(bulletTransformsAccessArray, behaviorJobHandle);
         handle.Complete();
     }
 
