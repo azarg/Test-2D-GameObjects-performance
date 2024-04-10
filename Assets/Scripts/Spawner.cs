@@ -7,7 +7,7 @@ public class Spawner : MonoBehaviour
 {
     public static Spawner Instance;
 
-    public Vector2 spawnAreaSize;
+    public float spawnAreaRadius;
     public GameObject enemyPrefab;
     public GameObject bulletPrefab;
 
@@ -39,20 +39,19 @@ public class Spawner : MonoBehaviour
 
         for(int i = 0;i < maxBullets; i++) {
             var instance = Instantiate(bulletPrefab);
-            var pos = GetRandomPosition();
-            instance.transform.position = pos;
+
+            instance.transform.position = GetRandomPosition();
             bullets[i] = instance.transform;
             bulletDirections[i] = Random.insideUnitCircle.normalized;
-            bulletPositions[i] = pos;
+            bulletPositions[i] = instance.transform.position;
         }
 
         behaviorManager.Initialize();
     }
 
-    private Vector3 GetRandomPosition() {
-        float x = Random.Range(-spawnAreaSize.x / 2, spawnAreaSize.x / 2);
-        float y = Random.Range(-spawnAreaSize.y / 2, spawnAreaSize.y / 2);
-        return new Vector3(x, y, 0);
+    private Vector2 GetRandomPosition() {
+        var pos = Random.insideUnitCircle * spawnAreaRadius;
+        return pos;
     }
 
     private void OnDisable() {

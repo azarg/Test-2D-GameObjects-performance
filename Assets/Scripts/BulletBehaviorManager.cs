@@ -28,7 +28,7 @@ public class BulletBehaviorManager : MonoBehaviour
 
         var behaviorJob = new BulletBehaviorJob {
             deltaTime = Time.deltaTime,
-            spawnAreaSize = spawner.spawnAreaSize,
+            spawnAreaRadius = spawner.spawnAreaRadius,
             bulletPositions = spawner.bulletPositions,
             directions = spawner.bulletDirections,
         };
